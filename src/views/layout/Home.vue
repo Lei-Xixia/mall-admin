@@ -61,7 +61,7 @@
         </div>
         <ul class="user-info">
           <li>
-            欢迎leilei
+            欢迎:leilei
             <a-icon type="down" />
           </li>
           <li>退出</li>
