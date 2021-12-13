@@ -27,6 +27,9 @@
 
 <script>
 export default {
+  data(){
+    return {}
+  },
   methods: {
     toggleCollapsed(){
       this.$store.dispatch("changeCollapsed")
