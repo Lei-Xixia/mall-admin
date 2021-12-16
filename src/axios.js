@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/store";
 
 const instance = axios.create({
   baseURL: "https://mallapi.duyiedu.com/",
@@ -6,8 +7,18 @@ const instance = axios.create({
 // 请求拦截
 instance.interceptors.request.use(
   (config) => {
-    console.log(config);
-    return config;
+    // console.log(config);
+    if (config.url.includes("/passport")) {
+      return config;
+    } else {
+      return {
+        ...config,
+        params: {
+          ...config.params,
+          appkey: store.state.user.appkey,
+        },
+      };
+    }
   },
   (error) => Promise.reject(error)
 );
@@ -15,9 +26,9 @@ instance.interceptors.request.use(
 // 响应拦截
 instance.interceptors.response.use(
   (response) => {
-    if(response.data.status === "fail"){
-      return Promise.reject(response.data.msg)
-    }else{
+    if (response.data.status === "fail") {
+      return Promise.reject(response.data.msg);
+    } else {
       return response.data.data;
     }
   },

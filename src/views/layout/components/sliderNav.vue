@@ -14,7 +14,7 @@
             currentRoute[0] ? currentRoute[0].meta.title : ""
           }}</a-breadcrumb-item>
           <a-breadcrumb-item
-            ><router-link :to="{name: currentRoute[1].name}" href="">{{
+            ><router-link :to="{ name: currentRoute[1].name }" href="">{{
               currentRoute[1] ? currentRoute[1].meta.title : ""
             }}</router-link></a-breadcrumb-item
           >
@@ -56,4 +56,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="less">
+.user-info {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+</style>
