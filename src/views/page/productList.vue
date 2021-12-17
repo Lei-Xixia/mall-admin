@@ -43,6 +43,7 @@ export default {
   },
   async created() {
     await CategoryApi.list().then((res) => {
+      // console.log(res);
       this.categoryList = res.data;
       res.data.forEach((item) => {
         this.categoryObj[item.id] = item;

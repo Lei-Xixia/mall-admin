@@ -13,6 +13,8 @@
 <script>
 import BasicDetail from "@/components/basicDetail.vue";
 import SaleDetail from "@/components/saleDetail.vue";
+
+import api from "@/api/product.js";
 export default {
   components: {
     BasicDetail,
@@ -50,7 +52,19 @@ export default {
         ...this.form,
         form
       }
-      this.current++;
+      if(this.current === 1){
+        // 提交数据
+        // console.log(this.form);
+        api.add(this.form).then((res) => {
+          console.log(res);
+          this.$message.success('新增成功');
+          this.$router.push({
+            name: "ProductList"
+          })
+        })
+      } else{
+        this.current++;
+      }
     },
     prev() {
       this.current--;

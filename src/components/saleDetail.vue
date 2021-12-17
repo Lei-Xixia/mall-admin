@@ -29,7 +29,7 @@
           :file-list="fileList"
           @preview="handlePreview"
           @change="handleChange"
-          name="avator"
+          name="avatar"
         >
           <div v-if="fileList.length < 8">
             <a-icon :type="loading ? 'loading' : 'plus'" />
@@ -70,24 +70,34 @@ export default {
       fileList: [],
       loading: false,
       rules: {},
-      categoryList: [],
-      categoryItems: [],
     };
   },
   props: ["form"],
   methods: {
-    handleChange( { fileList }) {
-      console.log("change");
+    handleChange({ file, fileList, event }) {
+      if (file.status === "done") {
+        this.form.images.push(file.response.data.url);
+      } else if (file.status === "removed") {
+        const url = file.response.data.url;
+        this.form.images = this.form.images.filter((item) => item !== url);
+      }
       this.fileList = fileList;
     },
     prev() {
       this.$emit("prev");
     },
     next() {
-      this.$emit("next", this.form);
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.$emit("next", this.form);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     async handlePreview(file) {
-      let obj = file
+      let obj = file;
       if (!file.url && !file.preview) {
         obj.preview = await getBase64(file.originFileObj);
       }
