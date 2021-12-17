@@ -4,8 +4,8 @@
       <a-step v-for="item in steps" :key="item.title" :title="item.title" />
     </a-steps>
     <div class="steps-content">
-      <BasicDetail v-if="current === 0" @next="next"/>
-      <SaleDetail v-else-if="current === 1" />
+      <BasicDetail v-if="current === 0" @next="next" :form="form"/>
+      <SaleDetail v-else-if="current === 1" @next="next" @prev="prev" :form="form"/>
     </div>
   </div>
 </template>
@@ -29,10 +29,27 @@ export default {
           title: "填写商品销售信息",
         },
       ],
+      form: {
+        title: "",
+        desc: "",
+        category: "",
+        c_items: [],
+        tags: [],
+        price: 0,
+        price_off: 0,
+        unit: "",
+        inventory: 0,
+        images: [],
+      },
     };
   },
+ 
   methods: {
-    next() {
+    next(form) {
+      this.form = {
+        ...this.form,
+        form
+      }
       this.current++;
     },
     prev() {

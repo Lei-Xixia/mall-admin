@@ -42,7 +42,7 @@
           </a-select-option>
         </a-select>
       </a-form-model-item>
-      <a-form-model-item label=" ">
+      <a-form-model-item label="" :wrapperCol="{ span: 24 }">
         <a-button type="primary" @click="next"> 下一步 </a-button>
       </a-form-model-item>
     </a-form-model>
@@ -54,18 +54,12 @@ import categoryApi from "@/api/category.js";
 export default {
   data() {
     return {
-      form: {
-        title: "",
-        desc: "",
-        category: "",
-        c_items: [],
-        tags: [],
-      },
       rules: {},
       categoryList: [],
       categoryItems: [],
     };
   },
+  props: ["form"],
   created() {
     categoryApi.list().then((res) => {
       // console.log(res);
@@ -83,7 +77,7 @@ export default {
     next() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit('next',this.form)
+          this.$emit("next", this.form);
         } else {
           console.log("error submit!!");
           return false;
@@ -94,10 +88,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-// .basic-detail {
-//   .nextBtn {
-//     text-align: center;
-//   }
-// }
-</style>
+<style lang="less"></style>
