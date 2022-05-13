@@ -32,6 +32,10 @@
 <script>
 import api from "@/api/user";
 export default {
+  mounted() {
+    this.loginForm.email = "1377158174@qq.com";
+    this.loginForm.password = "Lwj160442133";
+  },
   data() {
     // 邮箱的校验规则
     let emailReg = /^[\w-]+@[\w.-]+.com$/;
@@ -71,16 +75,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          api.login(this.loginForm).then((res) => {
-            console.log(res);
-            this.$store.dispatch("setUserInfo",res)
-            this.$router.push({
-              name: "Home",
+          api
+            .login(this.loginForm)
+            .then((res) => {
+              console.log(res);
+              this.$store.dispatch("setUserInfo", res);
+              this.$router.push({
+                name: "Home",
+              });
             })
-          }).catch((error) => {
-            // 捕获到错误时给到的提示信息
-            this.$message.error(error);
-          })
+            .catch((error) => {
+              // 捕获到错误时给到的提示信息
+              this.$message.error(error);
+            });
           return true;
         } else {
           console.log("error submit!!");

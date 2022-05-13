@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d dist -r https://github.com/Lei-Xixia/mall-admin.git -b mall-admin-pages"
   },
   "dependencies": {
     "ant-design-vue": "^1.2.4",
@@ -22,6 +24,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "gh-pages": "^4.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "vue-cli-plugin-ant-design": "~1.0.1",
